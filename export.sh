@@ -1,0 +1,1 @@
+export PYTHONPATH=$HOME/Projects/opencv_image_transfer/python_lib/opencv_image_transfer/:$PYTHONPATH
