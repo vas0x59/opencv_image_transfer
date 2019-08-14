@@ -9,6 +9,9 @@
 
 #define INTERVAL 100
 
+using namespace cv;
+using namespace opencv_image_transfer;
+
 uint64_t get_time_msec()
 {
     static struct timeval _time_stamp;
@@ -16,8 +19,6 @@ uint64_t get_time_msec()
     return _time_stamp.tv_sec * 1000 + _time_stamp.tv_usec / 1000;
 }
 
-using namespace cv;
-using namespace opencv_image_transfer;
 int main()
 {
     VideoCapture cap(0);
