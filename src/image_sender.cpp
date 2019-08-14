@@ -5,7 +5,11 @@ namespace opencv_image_transfer
 {
 bool ImgSender::load_config(string config_path)
 {
-    FileStorage fs2(config_path, FileStorage::READ);
+    FileStorage fs2;
+    
+    fs2.open(String(config_path.c_str()), FileStorage::READ);
+    // FileStorage()
+    
     fs2["sub_url"] >> sub_url;
     int img_w, img_h;
 
@@ -13,7 +17,7 @@ bool ImgSender::load_config(string config_path)
     fs2["img_h"] >> img_h;
 
     image_size = Size(img_w, img_h);
-
+    fs2.release();
     return true;
 }
 bool ImgSender::open()
@@ -25,7 +29,15 @@ bool ImgSender::open()
 }
 void ImgSender::send_img(cv::Mat image)
 {
-    zmq_send(publisher, image.data, (image.rows*image.cols*image.channels()*sizeof(CV_8U)), ZMQ_NOBLOCK);
+    // std::cout << image.data;
+    // image.resize()
+    Mat img_b;
+    // image.copyTo(img_b);
+    resize(image,img_b,image_size);
+    img_b = (img_b.reshape(0,1)); // to make it continuous
+    // std::cout << img_b.total() << "\n";
+    int  imgSize = img_b.total()*img_b.elemSize();
+    zmq_send(publisher, img_b.data, imgSize, ZMQ_NOBLOCK);
 }
 void ImgSender::close(){
     zmq_close(publisher);
