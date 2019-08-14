@@ -1,2 +1,7 @@
 .vscode/*
 *.pyc
+CMakeFiles
+CMakeCache.txt
+*.cmake
+Makefile
+opencv_image_transfer_test
