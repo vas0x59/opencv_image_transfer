@@ -24,11 +24,11 @@ class Receiver:
             self.l_t = time.time()
 
     def open(self):
-        self.running = True
         self.context = zmq.Context()
         self.receiver = self.context.socket(zmq.SUB)
         self.receiver.connect(self.url)
         self.receiver.setsockopt_string(zmq.SUBSCRIBE, "")
+        self.running = True
 
         self.t.start()
     def close(self):
