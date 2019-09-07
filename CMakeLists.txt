@@ -15,9 +15,10 @@ add_executable(opencv_image_transfer_test example/opencv_image_transfer_test.cpp
 
 target_link_libraries(opencv_image_transfer_test
     #mavlink_indoor_sdk
-    ${PROJECT_SOURCE_DIR}/libopencv_image_transfer.so
+    # ${PROJECT_SOURCE_DIR}/libopencv_image_transfer.so
     pthread
     ${OpenCV_LIBS}
+    ${PROJECT_SOURCE_DIR}/${DEP2_BUILD_DIR}/libopencv_image_transfer.so
 )
 
 #zmq
